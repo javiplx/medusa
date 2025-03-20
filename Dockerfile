@@ -19,11 +19,3 @@ RUN apk add ca-certificates && update-ca-certificates
 
 RUN adduser -S scratchuser
 RUN chown scratchuser /go/bin/medusa
-
-FROM scratch
-COPY --from=builder /go/bin/medusa /medusa
-COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /usr/share/ca-certificates/mozilla/* /etc/ssl/certs/
-
-USER scratchuser
-ENTRYPOINT ["/medusa"]
